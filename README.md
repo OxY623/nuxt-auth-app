@@ -9,6 +9,7 @@ This project demonstrates a Nuxt 3 application with authentication, account mana
 - **Pinia**: State management
 - **Nuxt UI**: UI component library
 - **SASS**: CSS preprocessor
+- **Tailwind CSS**: CSS framework
 
 ## Features
 
@@ -18,8 +19,6 @@ This project demonstrates a Nuxt 3 application with authentication, account mana
 - Advanced filtering capabilities
   - Date range filter
   - Category multi-select filter
-- Responsive design
-- Type-safe development
 
 ## Development
 
@@ -89,5 +88,5 @@ The deployment process involves several steps:
 - CSRF protection
 
 ## View Project
-[Link the project](https://nuxt-auth-app-89.netlify.app/)
-- helper: user = {name: 'admin', password: '12345678'}
+[View the project](https://nuxt-auth-app-89.netlify.app/)
+[Sample users data](https://nuxt-auth-app-89.netlify.app/users.json)

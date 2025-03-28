@@ -56,7 +56,6 @@ export const useAuthStore = defineStore<'auth', AuthState, {}, AuthActions>('aut
         }
     },
     getCurrentUser() {
-      console.log(this.user)
       if(this.user !== null) return this.user;
     }
   },

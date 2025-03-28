@@ -7,28 +7,35 @@
 
       <form @submit.prevent="handleLogin" class="flex flex-col justify-center gap-4">
         <UFormGroup label="Username">
-          <UInput
-            class="w-full p-3   focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
+          <!-- Заменили на стандартный input -->
+          <input
+            class="w-full p-3 focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
             v-model="username"
-            placeholder="Enter username"
-            :error="error"
+            placeholder="Enter email"
+            :class="{'border-red-500': usernameError}"
+            type="email"
           />
+          <!-- Отображение ошибки для поля username -->
+          <p v-if="usernameError" class="text-red-500 text-sm">{{ usernameError }}</p>
         </UFormGroup>
 
         <UFormGroup label="Password">
-          <UInput
-            class="w-full p-3   focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
+          <!-- Заменили на стандартный input -->
+          <input
+            class="w-full p-3 focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
             v-model="password"
             type="password"
             placeholder="Enter password"
-            :error="error"
+            :class="{'border-red-500': passwordError}"
           />
+          <!-- Отображение ошибки для поля password -->
+          <p v-if="passwordError" class="text-red-500 text-sm">{{ passwordError }}</p>
         </UFormGroup>
 
-        <p v-if="error" class="text-red-500 text-center">{{
-          error
-        }}</p>
+        <!-- Отображение общей ошибки -->
+        <p v-if="error" class="text-red-500 text-center">{{ error }}</p>
 
+        <!-- Кнопка для отправки формы -->
         <UButton
           type="submit"
           color="primary"
@@ -42,32 +49,53 @@
     </UCard>
   </div>
 </template>
-  
-  <script setup lang="ts">
-  const authStore = useAuthStore();
-  const router = useRouter();
-  
-  const username = ref('');
-  const password = ref('');
-  const error = ref('');
-  const loading = ref(false);
-  
-  async function handleLogin() {
-    loading.value = true;
-    error.value = '';
-  
-    try {
-      const success = await authStore.login(username.value, password.value);
-      if (success) {
-        router.push('/account');
-      } else {
-        error.value = 'Incorrect registration data entered. Please re-enter.';
-      }
-    } catch (e) {
-      error.value = 'An error occurred. Please try again.';
-    } finally {
-      loading.value = false;
-    }
+
+<script setup lang="ts">
+const authStore = useAuthStore();
+const router = useRouter();
+
+const username = ref('');
+const password = ref('');
+const error = ref('');
+const loading = ref(false);
+
+const usernameError = ref('');
+const passwordError = ref('');
+
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,7}$/;
+
+watch(username, (newValue) => {
+  if (!emailRegex.test(newValue)) {
+    usernameError.value = 'Please enter a valid email address';
+  } else {
+    usernameError.value = '';
   }
-  </script>
-  
+});
+
+async function handleLogin() {
+  loading.value = true;
+  error.value = '';
+  usernameError.value = '';
+  passwordError.value = '';
+
+  // Простая проверка на пустое поле пароля
+  if (!password.value) {
+    passwordError.value = 'Password is required';
+    loading.value = false;
+    return;
+  }
+
+  try {
+    const success = await authStore.login(username.value, password.value);
+    if (success) {
+      router.push('/account');
+    } else {
+      error.value = 'Incorrect registration data entered. Please re-enter.';
+    }
+  } catch (e) {
+    error.value = 'An error occurred. Please try again.';
+  } finally {
+    loading.value = false;
+  }
+}
+</script>
