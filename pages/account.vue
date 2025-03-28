@@ -2,6 +2,9 @@
   <div class="w-full min-h-screen flex flex-col gap-6 items-center justify-center bg-fuchsia-300 p-4">
     <header class="flex w-full max-w-screen-xl justify-between items-center mb-6">
       <h1 class="text-3xl font-extrabold text-gray-800">Account Dashboard</h1>
+      <div>
+        <p>Username : {{userName}}</p>
+      </div>
       <UButton
         class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-2xl px-4 py-2 border-2 border-amber-600 text-lg"
         color="neutral"
@@ -91,6 +94,13 @@ import { useProductStore } from '@/stores/products';
 
 const authStore = useAuthStore();
 const productStore = useProductStore();
+
+const currentUserName = async (): Promise<string> => {
+  const data = await authStore.getCurrentUser();
+  return data ? `${data.name ?? ''} ${data.surname ?? ''}`.trim() : 'Guest';
+};
+
+const userName = await currentUserName();
 
 
 interface ProductRow {

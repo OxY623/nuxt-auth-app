@@ -1,7 +1,24 @@
-export interface User {
-    id: number,
-    username: string,
-    password: string
+export interface IUser {
+    name: "string",
+    surname: "string",
+    credentials: {
+        "username": "string",
+        "passphrase": "string"
+    },
+    "active": boolean,
+    "created": "string",
+    "_comment": "string"
+}
+
+export interface User extends IUser {
+    id: string;
+}
+
+export interface AuthActions {
+    login(username: string, password: string): Promise<boolean>;
+    logout(): void; 
+    initAuth(): void;
+    getCurrentUser(): User | void;
 }
 
 export interface Product {
@@ -15,6 +32,7 @@ export interface Product {
 }
 
 export interface AuthState {
-    user: User | null,
-    isAuthenticated: boolean,
+    users: IUser[];
+    user: User | null;
+    isAuthenticated: boolean;
 }

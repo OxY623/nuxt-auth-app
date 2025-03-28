@@ -16,6 +16,8 @@
     "@nuxt/ui": "^3.0.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@pinia/nuxt": "^0.10.1",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.2.0",
     "nuxt": "^3.16.1",
     "pinia": "^3.0.1",
     "tailwindcss": "^4.0.16",
@@ -23,6 +25,8 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^22.13.14",
     "gh-pages": "^6.3.0",
     "sass-embedded": "^1.86.0"
   }
