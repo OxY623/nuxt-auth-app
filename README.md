@@ -87,3 +87,7 @@ The deployment process involves several steps:
 - Input validation
 - XSS protection through Vue's template syntax
 - CSRF protection
+
+## View Project
+[https://nuxt-auth-app-89.netlify.app/]["Link the project"]
+- helper: user = {name: 'admin', password: '12345678'}
