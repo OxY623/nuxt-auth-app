@@ -7,42 +7,27 @@
 
       <form @submit.prevent="handleLogin" class="flex flex-col justify-center gap-4">
         <UFormGroup label="Username">
-          <!-- Заменили на стандартный input -->
-          <input
-            class="w-full p-3 focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
-            v-model="username"
-            placeholder="Enter email"
-            :class="{'border-red-500': usernameError}"
-            type="email"
-          />
-          <!-- Отображение ошибки для поля username -->
+
+          <input class="w-full p-3 focus:outline-none focus:ring-2 focus:ring-fuchsia-500" v-model="username"
+            placeholder="Enter email" :class="{'border-red-500': usernameError}" type="email" />
+
           <p v-if="usernameError" class="text-red-500 text-sm">{{ usernameError }}</p>
         </UFormGroup>
 
         <UFormGroup label="Password">
-          <!-- Заменили на стандартный input -->
-          <input
-            class="w-full p-3 focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
-            v-model="password"
-            type="password"
-            placeholder="Enter password"
-            :class="{'border-red-500': passwordError}"
-          />
-          <!-- Отображение ошибки для поля password -->
+
+          <input class="w-full p-3 focus:outline-none focus:ring-2 focus:ring-fuchsia-500" v-model="password"
+            type="password" placeholder="Enter password" :class="{'border-red-500': passwordError}" />
+
           <p v-if="passwordError" class="text-red-500 text-sm">{{ passwordError }}</p>
         </UFormGroup>
 
-        <!-- Отображение общей ошибки -->
+
         <p v-if="error" class="text-red-500 text-center">{{ error }}</p>
 
-        <!-- Кнопка для отправки формы -->
-        <UButton
-          type="submit"
-          color="primary"
-          block
-          :loading="loading"
-          class="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg shadow-md border-2 border-green-600 text-lg transition-colors"
-        >
+
+        <UButton type="submit" color="primary" block :loading="loading"
+          class="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg shadow-md border-2 border-green-600 text-lg transition-colors">
           Login
         </UButton>
       </form>
@@ -78,7 +63,6 @@ async function handleLogin() {
   usernameError.value = '';
   passwordError.value = '';
 
-  // Простая проверка на пустое поле пароля
   if (!password.value) {
     passwordError.value = 'Password is required';
     loading.value = false;
