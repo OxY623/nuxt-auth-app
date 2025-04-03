@@ -6,6 +6,7 @@ export const useProductStore = defineStore('products', {
         products:[] as Product[],
         filteredProducts: [] as Product[],
         selectedCategories: [] as string[],
+        isLoading: false,
         dateRange: {
             start: '',
             end: ''
@@ -13,6 +14,7 @@ export const useProductStore = defineStore('products', {
     }),
     actions: {
         async fetchProducts(){
+            this.isLoading = true;
             this.products = await new Promise<Product[]>((resolve, reject) => {
                 fetch('/products.json')
                     .then(response => response.json())
@@ -21,7 +23,7 @@ export const useProductStore = defineStore('products', {
             }).catch(e => {
                 console.log(e);
                 return [];
-            });
+            }).finally(()=> this.isLoading = false);
             this.filterProducts();
               
         },

@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-// useRouter().beforeEach((to, from, next) => {
-//   const authStore = useAuthStore();
-//   authStore.initAuth();
-//   next();
-// });
+useRouter().beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  authStore.initAuth();
+  next();
+});
 </script>

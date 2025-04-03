@@ -5,19 +5,15 @@
       <div>
         <p>Username : {{userName}}</p>
       </div>
-      <UButton
-        class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-2xl px-4 py-2 border-2 border-amber-600 text-lg"
-        color="neutral"
+      <MyButton 
+        class = "w-1/5 py-1.5 flex gap-1 justify-center align-middle"
         variant="soft"
         icon="i-heroicons-arrow-right-on-rectangle"
-        @click="authStore.logout()"
-      >
-        Logout
-      </UButton>
+        @click="authStore.logout()">Logout</MyButton>
     </header>
 
     <div class="w-full max-w-screen-xl flex justify-between items-start gap-6 mb-6">
-      <UCard class="w-1/3">
+      <UCard class="w-max">
         <template #header>
           <h2 class="text-xl font-semibold text-gray-700 ">Filters</h2>
         </template>
@@ -90,6 +86,7 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useProductStore } from '@/stores/products';
+import {MyButton} from '../components/UI';
 
 
 const authStore = useAuthStore();

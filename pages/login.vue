@@ -1,41 +1,31 @@
 <template>
   <div class="w-full h-screen flex items-center justify-center bg-fuchsia-300">
     <UCard variant="subtle" class="w-full max-w-md mx-auto p-8 rounded-xl">
-      <template #header>
-        <h1 class="text-gray-700 font-extrabold text-3xl mb-4 text-center">Login</h1>
-      </template>
-
-      <form @submit.prevent="handleLogin" class="flex flex-col justify-center gap-4">
-        <UFormGroup label="Username">
-
-          <input class="w-full p-3 focus:outline-none focus:ring-2 focus:ring-fuchsia-500" v-model="username"
-            placeholder="Enter email" :class="{'border-red-500': usernameError}" type="email" />
-
-          <p v-if="usernameError" class="text-red-500 text-sm">{{ usernameError }}</p>
-        </UFormGroup>
-
-        <UFormGroup label="Password">
-
-          <input class="w-full p-3 focus:outline-none focus:ring-2 focus:ring-fuchsia-500" v-model="password"
-            type="password" placeholder="Enter password" :class="{'border-red-500': passwordError}" />
-
-          <p v-if="passwordError" class="text-red-500 text-sm">{{ passwordError }}</p>
-        </UFormGroup>
-
+      <MyHeader>Login</MyHeader>
+      <form @submit.prevent="handleLogin" class="flex flex-col justify-center gap-4" >
+        <div title="Username">
+          <MyInput :errorMessage="usernameError" v-model="username" placeholder="Enter email" type="email" />
+        </div>
+         
+        <div title="Password">
+          <MyInput :errorMessage="passwordError" v-model="password" placeholder="Enter password" type="password" />
+        </div>
 
         <p v-if="error" class="text-red-500 text-center">{{ error }}</p>
-
-
-        <UButton type="submit" color="primary" block :loading="loading"
-          class="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg shadow-md border-2 border-green-600 text-lg transition-colors">
-          Login
-        </UButton>
+        <MyButton type="submit" block :loading="loading">Login</MyButton>
       </form>
     </UCard>
   </div>
 </template>
 
 <script setup lang="ts">
+import {MyButton, MyHeader, MyInput} from '../components/UI';
+
+
+
+
+
+
 const authStore = useAuthStore();
 const router = useRouter();
 
@@ -62,8 +52,12 @@ async function handleLogin() {
   error.value = '';
   usernameError.value = '';
   passwordError.value = '';
+  console.log(password.value)
+  console.log(username.value)
+  
 
   if (!password.value) {
+
     passwordError.value = 'Password is required';
     loading.value = false;
     return;
